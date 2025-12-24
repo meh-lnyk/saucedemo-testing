@@ -23,7 +23,9 @@ def test_login_standard(login_page):
 def test_login_wrong_password(login_page):
     login_page.login(login_page.STANDARD_USERNAME, login_page.WRONG_PASSWORD)
     assert login_page.has_login_error_message()
+    assert login_page.current_url == login_page.page_url
 
 def test_login_locked_out(login_page):
     login_page.login(login_page.LOCKED_OUT_USERNAME, login_page.COMMON_PASSWORD)
     assert login_page.has_login_error_message()
+    assert login_page.current_url == login_page.page_url
