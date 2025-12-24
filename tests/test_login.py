@@ -34,3 +34,7 @@ def test_login_empty_fields(login_page):
     login_page.login_empty_fields()
     assert login_page.has_login_error_message()
     assert login_page.current_url == login_page.page_url
+
+def test_login_performance_glitch(login_page):
+    login_page.login(login_page.PERFORMANCE_GLITCH_USERNAME, login_page.COMMON_PASSWORD)
+    assert login_page.current_url == login_page.INVENTORY_URL
