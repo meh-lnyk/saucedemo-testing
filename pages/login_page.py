@@ -11,7 +11,7 @@ class LoginPage(BasePage):
     PASSWORD_LOCATOR = (By.ID, "password")
     LOGIN_BUTTON_LOCATOR = (By.ID, "login-button")
     LOGIN_ERROR_LOCATOR = (By.CSS_SELECTOR, "#login_button_container > div > form > div.error-message-container.error > h3")
-    LOCKED_OUT_USER_ERROR_LOCATOR =(By.CSS_SELECTOR, "#login_button_container > div > form > div.error-message-container.error")
+    LOCKED_OUT_USER_ERROR_LOCATOR = (By.CSS_SELECTOR, "#login_button_container > div > form > div.error-message-container.error")
 
     COMMON_PASSWORD = "secret_sauce"
     STANDARD_USERNAME = "standard_user"
@@ -37,4 +37,7 @@ class LoginPage(BasePage):
     def login(self, username:str, password:str) -> None:
         self.driver.find_element(*self.USERNAME_LOCATOR).send_keys(username)
         self.driver.find_element(*self.PASSWORD_LOCATOR).send_keys(password)
+        self.driver.find_element(*self.LOGIN_BUTTON_LOCATOR).click()
+
+    def login_empty_fields(self):
         self.driver.find_element(*self.LOGIN_BUTTON_LOCATOR).click()
