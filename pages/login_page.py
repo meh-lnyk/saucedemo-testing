@@ -18,10 +18,14 @@ class LoginPage(BasePage):
     STANDARD_USERNAME = "standard_user"
     LOCKED_OUT_USERNAME = "locked_out_user"
     PERFORMANCE_GLITCH_USERNAME = "performance_glitch_user"
+    WRONG_PASSWORD = "wrong_sauce"
 
     @property
     def current_url(self) -> str:
         return self.driver.current_url
+
+    def has_login_error_message(self) -> bool:
+        return self.driver.find_element(*self.LOGIN_ERROR_LOCATOR)
 
     def wait_for_elements(self) -> None:
         self.wait.until(EC.visibility_of_element_located(self.USERNAME_LOCATOR))

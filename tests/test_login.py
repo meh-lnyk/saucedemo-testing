@@ -15,7 +15,11 @@ def login_page(driver) -> LoginPage:
         pytest.skip("Login page or elements did not load")
     return page
 
-def test_login(login_page):
+def test_login_standard(login_page):
     login_page.login(login_page.STANDARD_USERNAME, login_page.COMMON_PASSWORD)
     login_page.wait_for_url(login_page.INVENTORY_URL)
     assert login_page.current_url == login_page.INVENTORY_URL
+
+def test_login_wrong_password(login_page):
+    login_page.login(login_page.STANDARD_USERNAME, login_page.WRONG_PASSWORD)
+    assert login_page.has_login_error_message()
