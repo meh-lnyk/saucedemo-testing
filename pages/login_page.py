@@ -11,7 +11,6 @@ class LoginPage(BasePage):
     PASSWORD_LOCATOR = (By.ID, "password")
     LOGIN_BUTTON_LOCATOR = (By.ID, "login-button")
     LOGIN_ERROR_LOCATOR = (By.CSS_SELECTOR, "#login_button_container > div > form > div.error-message-container.error > h3")
-    LOCKED_OUT_USER_ERROR_LOCATOR = (By.CSS_SELECTOR, "#login_button_container > div > form > div.error-message-container.error")
 
     COMMON_PASSWORD = "secret_sauce"
     STANDARD_USERNAME = "standard_user"
@@ -24,10 +23,9 @@ class LoginPage(BasePage):
         return self.driver.current_url
 
     def has_login_error_message(self) -> bool:
-        return self.driver.find_element(*self.LOGIN_ERROR_LOCATOR)
-
-    def has_locked_out_message(self) -> bool:
-        return self.driver.find_element(*self.LOCKED_OUT_USER_ERROR_LOCATOR)
+        if self.driver.find_elements(*self.LOGIN_ERROR_LOCATOR):
+            return True
+        return False
 
     def wait_for_elements(self) -> None:
         self.wait.until(EC.visibility_of_element_located(self.USERNAME_LOCATOR))
